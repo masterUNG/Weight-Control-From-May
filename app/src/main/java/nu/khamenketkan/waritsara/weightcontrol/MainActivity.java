@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         dateTextview.setText("Date = " + dateString);
 
         // show name ดึงชื่อผู้ใช้มาโชว์
-        //showName();
+        showName();
 
         //show calories
         showCalories();
