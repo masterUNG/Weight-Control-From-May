@@ -188,7 +188,9 @@ public class MainActivity extends AppCompatActivity {
         String[] caloriesStrings = myData.getCaloriesStrings();
         for (int i=0;i<foodStrings.length;i+=1) {
 
-            myManage.addFood(foodStrings[i],
+            // Add Value to foo
+            myManage.addFood(
+                    foodStrings[i],
                     unitStrings[i],
                     caloriesStrings[i]);
         } //For

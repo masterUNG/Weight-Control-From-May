@@ -2,7 +2,6 @@ package nu.khamenketkan.waritsara.weightcontrol;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.SearchRecentSuggestionsProvider;
 import android.database.sqlite.SQLiteDatabase;
 
 /**
@@ -50,8 +49,8 @@ public class MyManage {
 
     //Add Burn
     public long addBurn(String strDate,
-                            String strExercise,
-                            String strBurn) {
+                        String strExercise,
+                        String strBurn) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(column_date, strDate);
         contentValues.put(column_exercise, strExercise);
@@ -89,7 +88,7 @@ public class MyManage {
         contentValues.put(column_Sex, strSex);
         contentValues.put(column_Age, strAge);
         contentValues.put(column_BMR, strBMR);
- //เอาข้อมูลในหน้าsign upไปเก็บไว้ในหน้า usertable
+        //เอาข้อมูลในหน้าsign upไปเก็บไว้ในหน้า usertable
         return sqLiteDatabase.insert(user_table, null, contentValues);
     }
 
