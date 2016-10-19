@@ -3,8 +3,8 @@ package nu.khamenketkan.waritsara.weightcontrol;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -47,20 +47,9 @@ public class MainActivity extends AppCompatActivity {
         //CheckUserTABLE
         checkUserTABLE();
 
-        //show date อ่านเดต้าแล้วดึงขึ้นมาโชว ดึงวันที่ ปจบ มาโชว์
-        Calendar calendar = Calendar.getInstance();
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        dateString = dateFormat.format(calendar.getTime());
-        dateTextview.setText("Date = " + dateString);
 
-        // show name ดึงชื่อผู้ใช้มาโชว์
-        showName();
 
-        //show calories
-        showCalories();
 
-        //show Burn
-        showBurn();
 
 
 
@@ -69,13 +58,46 @@ public class MainActivity extends AppCompatActivity {
 
     private void showBurn() {
 
+        try {
 
-    }
+            SQLiteDatabase sqLiteDatabase = openOrCreateDatabase(MyOpenHelper.database_name,
+                    MODE_PRIVATE, null);
+            Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM burnTABLE WHERE Date = " + "'" + dateString + "'", null);
+            cursor.moveToFirst();
+            double douTotalBurn = 0;
+
+            if (cursor.getCount() == 0) {
+                burnTextView.setText("Burn ==> " + "?");
+            } else {
+
+                String[] burnStrings = new String[cursor.getCount()];
+
+                for (int i=0;i<cursor.getCount();i+=1) {
+
+                    burnStrings[i] = cursor.getString(cursor.getColumnIndex(MyManage.column_burn));
+                    douTotalBurn = douTotalBurn + Double.parseDouble(burnStrings[i]);
+
+                    cursor.moveToNext();
+                }   // for
+
+            }   // if
+            cursor.close();
+            burnTextView.setText("Burn ==> " + Double.toString(douTotalBurn));
+
+
+        } catch (Exception e) {
+            Log.d("WeightV1", "e burn ==> " + e.toString());
+            burnTextView.setText("Burn ==> " + "?");
+        }
+
+
+    }    //showBurn
 
     @Override
     protected void onRestart() {
         super.onRestart();
         showCalories();
+        showBurn();
     }
 
     public void clickBurn(View view) {
@@ -129,6 +151,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void showName() {
 
+        //show date อ่านเดต้าแล้วดึงขึ้นมาโชว ดึงวันที่ ปจบ มาโชว์
+        Calendar calendar = Calendar.getInstance();
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        dateString = dateFormat.format(calendar.getTime());
+        dateTextview.setText("Date = " + dateString);
+
+        //Connected SQLite
         SQLiteDatabase sqLiteDatabase = openOrCreateDatabase(MyOpenHelper.database_name,
                 MODE_PRIVATE , null);
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM userTABLE", null);
@@ -160,10 +189,21 @@ public class MainActivity extends AppCompatActivity {
 
             cursor.moveToFirst();
 
-            if (cursor.getCount() == 0) {
+            if (cursor.getCount() == 0) {   //userTABLE ไม่มีข้อมูล รอการบันทึก
                 Log.d("6octV1", "Intent OK");
                 startActivity(new Intent(MainActivity.this, SignUpActivity.class));
-            } //if
+            } else {
+
+                // show name ดึงชื่อผู้ใช้มาโชว์
+                showName();
+
+                //show calories
+                showCalories();
+
+                //show Burn
+                showBurn();
+
+            }
             cursor.close();
 
         } catch (Exception e) {
@@ -173,6 +213,7 @@ public class MainActivity extends AppCompatActivity {
 
     } //checkUser
 
+    //จะทำการลบ foodTABLE  และ exerciseTABLE ก่อน แล้วค่อย Add Value ใหม่ทุกๆ ครั้งที่เปิด
     private void addFirstData() {
 
         //Delete All Data
@@ -200,7 +241,7 @@ public class MainActivity extends AppCompatActivity {
         String[] burnStrings = myData.getBurnStrings();
         for (int i=0;i<exerciseStrings.length;i+=1) {
             myManage.addExercise(exerciseStrings[i], burnStrings[i]);
-        }
+        }   // for
 
     } //addFirstData
 
