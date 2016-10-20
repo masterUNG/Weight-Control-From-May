@@ -18,8 +18,8 @@ public class MainActivity extends AppCompatActivity {
     //Explicit
     private MyManage myManage;
     private MyData myData;
-    private TextView dateTextview, nameTextView , bmrTextView ,
-    caloriesTextView , burnTextView , myBMRTextView;
+    private TextView dateTextview, nameTextView, bmrTextView,
+            caloriesTextView, burnTextView, myBMRTextView;
     private String dateString;
 
     @Override
@@ -39,19 +39,13 @@ public class MainActivity extends AppCompatActivity {
         myManage = new MyManage(this);
 
         //Test Add Value
-       // testAddValue();
+        // testAddValue();
 
         //Add First Data
         addFirstData();
 
         //CheckUserTABLE
         checkUserTABLE();
-
-
-
-
-
-
 
 
     } // main method
@@ -72,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
                 String[] burnStrings = new String[cursor.getCount()];
 
-                for (int i=0;i<cursor.getCount();i+=1) {
+                for (int i = 0; i < cursor.getCount(); i += 1) {
 
                     burnStrings[i] = cursor.getString(cursor.getColumnIndex(MyManage.column_burn));
                     douTotalBurn = douTotalBurn + Double.parseDouble(burnStrings[i]);
@@ -129,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
 
                 String[] caloriesStrings = new String[cursor.getCount()];
 
-                for (int i=0;i<cursor.getCount();i+=1) {
+                for (int i = 0; i < cursor.getCount(); i += 1) {
 
                     caloriesStrings[i] = cursor.getString(cursor.getColumnIndex(MyManage.column_calories));
                     douTotalCalories = douTotalCalories + Double.parseDouble(caloriesStrings[i]);
@@ -159,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Connected SQLite
         SQLiteDatabase sqLiteDatabase = openOrCreateDatabase(MyOpenHelper.database_name,
-                MODE_PRIVATE , null);
+                MODE_PRIVATE, null);
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM userTABLE", null);
         cursor.moveToFirst();
         String strName = cursor.getString(cursor.getColumnIndex(MyManage.column_Name));
@@ -170,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
         cursor.close();
         //  cursor.close คืนหน่วยความจำให้กับมือถือ
         // %.2f คือจะเอาจุดทศนิยมมาโชแค่ 2 ตัว
-    // string ดึง ชื่อ bmr ขึ้นมาโชวจากในฐานข้อมูล
+        // string ดึง ชื่อ bmr ขึ้นมาโชวจากในฐานข้อมูล
     } // Show name rawquery การ query data การดึงข้อมูล select คือคำสั่งดึงข้อมูล cursor ดึงข้อมูลเข้าไปทำงานในแรม
 
     private void checkUserTABLE() {
@@ -218,16 +212,16 @@ public class MainActivity extends AppCompatActivity {
 
         //Delete All Data
         SQLiteDatabase sqLiteDatabase = openOrCreateDatabase(MyOpenHelper.database_name,
-                MODE_PRIVATE,null);
-        sqLiteDatabase.delete(MyManage.food_table,null,null);
-        sqLiteDatabase.delete(MyManage.exercise_table,null,null);
+                MODE_PRIVATE, null);
+        sqLiteDatabase.delete(MyManage.food_table, null, null);
+        sqLiteDatabase.delete(MyManage.exercise_table, null, null);
 
         //For foodTABLE
         myData = new MyData();
         String[] foodStrings = myData.getFoodStrings();
         String[] unitStrings = myData.getUnitStrings();
         String[] caloriesStrings = myData.getCaloriesStrings();
-        for (int i=0;i<foodStrings.length;i+=1) {
+        for (int i = 0; i < foodStrings.length; i += 1) {
 
             // Add Value to foo
             myManage.addFood(
@@ -239,7 +233,7 @@ public class MainActivity extends AppCompatActivity {
         //For exerciseTABLE
         String[] exerciseStrings = myData.getExerciseStrings();
         String[] burnStrings = myData.getBurnStrings();
-        for (int i=0;i<exerciseStrings.length;i+=1) {
+        for (int i = 0; i < exerciseStrings.length; i += 1) {
             myManage.addExercise(exerciseStrings[i], burnStrings[i]);
         }   // for
 
