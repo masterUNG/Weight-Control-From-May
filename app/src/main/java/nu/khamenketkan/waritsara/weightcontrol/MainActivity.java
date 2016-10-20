@@ -21,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView dateTextview, nameTextView, bmrTextView,
             caloriesTextView, burnTextView, myBMRTextView;
     private String dateString;
+    private double myBMRADouble, todayBMRADouble,
+            douTotalCalories, douTotalBurn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +50,18 @@ public class MainActivity extends AppCompatActivity {
         //CheckUserTABLE
         checkUserTABLE();
 
+        //Check Persen
+        checkPersenBMR();
+
 
     } // main method
+
+    private void checkPersenBMR() {
+
+        double douPersen = (myBMRADouble - (douTotalCalories - douTotalBurn)) * 100 / myBMRADouble;
+        myBMRTextView.setText(String.format("%.2f", douPersen) + " %");
+
+    }   // check
 
     private void showBurn() {
 
@@ -59,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
                     MODE_PRIVATE, null);
             Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM burnTABLE WHERE Date = " + "'" + dateString + "'", null);
             cursor.moveToFirst();
-            double douTotalBurn = 0;
+            douTotalBurn = 0;
 
             if (cursor.getCount() == 0) {
                 burnTextView.setText("Burn ==> " + "?");
@@ -93,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
         super.onRestart();
         showCalories();
         showBurn();
+        checkPersenBMR();
     }
 
     public void clickBurn(View view) {
@@ -116,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
                     MODE_PRIVATE, null);
             Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM caloriesTABLE WHERE Date = " + "'" + dateString + "'", null);
             cursor.moveToFirst();
-            double douTotalCalories = 0;
+            douTotalCalories = 0;
 
             if (cursor.getCount() == 0) {
                 caloriesTextView.setText("Calories ==> " + "?");
@@ -160,8 +173,10 @@ public class MainActivity extends AppCompatActivity {
         String strName = cursor.getString(cursor.getColumnIndex(MyManage.column_Name));
         String strSurname = cursor.getString(cursor.getColumnIndex(MyManage.column_Surname));
         String strBMR = cursor.getString(cursor.getColumnIndex(MyManage.column_BMR));
+        String strMyBMR = String.format("%.2f", Double.parseDouble(strBMR));
+        myBMRADouble = Double.parseDouble(strMyBMR);
         nameTextView.setText(strName + " " + strSurname);
-        bmrTextView.setText("BMR = " + String.format("%.2f", Double.parseDouble(strBMR)));
+        bmrTextView.setText("BMR = " + strMyBMR);
         cursor.close();
         //  cursor.close คืนหน่วยความจำให้กับมือถือ
         // %.2f คือจะเอาจุดทศนิยมมาโชแค่ 2 ตัว

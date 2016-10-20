@@ -24,22 +24,15 @@ public class MyData {
             "622", "630",
             "240", "435",
             "320", "577", "180",};
-    String[] exerciseStrings = new String[]{
-            "exercise0","exercise1",
-            "exercise2","exercise3","exercise4",
-            "exercise5","exercise6","exercise7",
-            "exercise8","exercise9",};
-    String[] burnStrings = new String[]{
-            "100",
-            "200",
-            "300",
-            "400",
+    String[] exerciseStrings = new String[]{"วิ่งเร็ว","วิ่งเหยาะๆ","ว่ายน้ำ","เต้น Zumba","เดินธรรมดา",
+            "เดินเร็ว","เดินลงบันได","แอโรบิค","แบดมินตัน","บาสเก็ตบอล",};
+    String[] burnStrings = new String[]{"1200",
+            "750",
+            "750",
             "500",
-            "600",
-            "700",
-            "800",
-            "900",
-            "100",};
+            "300",
+            "480",
+            "425","600","350","660",};
 
     public String[] getFoodStrings() {
         return foodStrings;
