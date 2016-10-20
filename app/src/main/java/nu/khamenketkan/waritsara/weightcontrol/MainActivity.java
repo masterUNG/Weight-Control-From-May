@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         myBMRTextView = (TextView) findViewById(R.id.textView13);
 
 
+
         myManage = new MyManage(this);
 
         //Test Add Value

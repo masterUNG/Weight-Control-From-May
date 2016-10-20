@@ -7,6 +7,17 @@
     tools:context="nu.khamenketkan.waritsara.weightcontrol.MainActivity"
     android:background="@drawable/bg2">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/textView13"
+        android:textSize="30sp"
+        android:textColor="@color/text"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:textStyle="normal|bold" />
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -90,13 +101,6 @@
             android:textSize="@dimen/h1"
             android:textColor="@color/text" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New Text"
-            android:id="@+id/textView13"
-            android:textSize="@dimen/h1"
-            android:textColor="@color/text" />
     </LinearLayout>
 
     <ImageView
