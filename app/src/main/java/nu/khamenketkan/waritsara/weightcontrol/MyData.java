@@ -34,6 +34,13 @@ public class MyData {
             "480",
             "425","600","350","660",};
 
+    int[] iconInts = new int[]{R.drawable.p1, R.drawable.p2, R.drawable.p3,
+            R.drawable.p4, R.drawable.p5, R.drawable.p6, R.drawable.p7};
+
+    public int[] getIconInts() {
+        return iconInts;
+    }
+
     public String[] getFoodStrings() {
         return foodStrings;
     }

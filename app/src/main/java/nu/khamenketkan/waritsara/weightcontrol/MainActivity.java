@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.text.DateFormat;
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private String dateString;
     private double myBMRADouble, todayBMRADouble,
             douTotalCalories, douTotalBurn;
+    private ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         caloriesTextView = (TextView) findViewById(R.id.textView11);
         burnTextView = (TextView) findViewById(R.id.textView12);
         myBMRTextView = (TextView) findViewById(R.id.textView13);
-
+        imageView = (ImageView) findViewById(R.id.imageView);
 
 
         myManage = new MyManage(this);
@@ -58,8 +60,28 @@ public class MainActivity extends AppCompatActivity {
 
     private void checkPersenBMR() {
 
-        double douPersen = (myBMRADouble - (douTotalCalories - douTotalBurn)) * 100 / myBMRADouble;
+        double douPersen = ((douTotalCalories - douTotalBurn)) * 100 / myBMRADouble;
         myBMRTextView.setText(String.format("%.2f", douPersen) + " %");
+
+        MyData myData = new MyData();
+        int[] ints = myData.iconInts;
+
+        //Show Image
+        if (douPersen < 20.0) {
+            imageView.setImageResource(ints[0]);
+        } else if (douPersen < 40) {
+            imageView.setImageResource(ints[1]);
+        } else if (douPersen < 60) {
+            imageView.setImageResource(ints[2]);
+        } else if (douPersen < 70) {
+            imageView.setImageResource(ints[3]);
+        } else if (douPersen < 80) {
+            imageView.setImageResource(ints[4]);
+        } else if (douPersen < 90) {
+            imageView.setImageResource(ints[5]);
+        } else {
+            imageView.setImageResource(ints[6]);
+        }
 
     }   // check
 
