@@ -3,16 +3,21 @@ package nu.khamenketkan.waritsara.weightcontrol;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class CaloriesListView extends AppCompatActivity {
 
     //Explicit การประกาศตัวแปร
     private String dateString;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +38,44 @@ public class CaloriesListView extends AppCompatActivity {
 
 
     } //Main Method
+
+    public void clickQRcode(View view) {
+
+        try {
+
+            Intent intent = new Intent("com.google.zxing.client.android.SCAN");
+            intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
+            startActivityForResult(intent, 0);
+
+        } catch (Exception e) {
+            Toast.makeText(this, "Please Install Barcode Scanner",
+                    Toast.LENGTH_SHORT).show();
+        }
+
+    }   // clickQRcode
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if ((requestCode ==0) && (resultCode == RESULT_OK)) {
+
+
+            String strQRcode = data.getStringExtra("SCAN_RESULT");
+            Log.d("1novV1", "QR code ==> " + strQRcode);
+            String[] QRStrings = strQRcode.split("/");
+            Log.d("1novV1", "array0 ==> " + QRStrings[0]);
+            Log.d("1novV1", "array1 ==> " + QRStrings[1]);
+
+            MyManage myManage = new MyManage(this);
+            myManage.addCalories(dateString, QRStrings[0], QRStrings[1]);
+            createListView();
+
+
+
+        }   // if
+
+    }   // onActivity
 
     @Override
     protected void onRestart() {

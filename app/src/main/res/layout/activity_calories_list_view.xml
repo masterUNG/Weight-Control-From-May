@@ -27,7 +27,7 @@
         android:id="@+id/linbottomCal">
 
         <Button
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Add Food"
             android:id="@+id/button5"
@@ -36,7 +36,16 @@
             android:onClick="clickAddCalories" />
 
         <Button
-            android:layout_width="match_parent"
+            android:text="QR code"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/button7"
+            android:layout_weight="1"
+            android:onClick="clickQRcode"
+            android:textColor="@color/text" />
+
+        <Button
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="BACK"
             android:id="@+id/button6"

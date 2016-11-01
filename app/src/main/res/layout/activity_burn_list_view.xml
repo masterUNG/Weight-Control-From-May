@@ -19,32 +19,6 @@
         android:layout_centerHorizontal="true"
         android:textColor="@color/text" />
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:id="@+id/linbottomBurn">
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Add Burn"
-            android:id="@+id/button5"
-            android:layout_weight="1"
-            android:textColor="@color/text"
-            android:onClick="clickAddBurn" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="BACK"
-            android:id="@+id/button6"
-            android:layout_weight="1"
-            android:textColor="@color/text"
-            android:onClick="clickBackBurn" />
-    </LinearLayout>
-
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -54,4 +28,31 @@
         android:background="#f7ffffff"
         android:layout_above="@+id/linbottomBurn"
         android:layout_below="@+id/txtBurnList" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/linbottomBurn">
+
+        <Button
+            android:layout_height="wrap_content"
+            android:text="Add Burn"
+            android:id="@+id/button5"
+            android:layout_weight="1"
+            android:textColor="@color/text"
+            android:onClick="clickAddBurn"
+            android:layout_width="0dp" />
+
+        <Button
+            android:layout_height="wrap_content"
+            android:text="BACK"
+            android:id="@+id/button6"
+            android:layout_weight="1"
+            android:textColor="@color/text"
+            android:onClick="clickBackBurn"
+            android:layout_width="0dp" />
+    </LinearLayout>
+
 </RelativeLayout>
