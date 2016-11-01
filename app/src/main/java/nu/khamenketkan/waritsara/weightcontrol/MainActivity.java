@@ -1,8 +1,11 @@
 package nu.khamenketkan.waritsara.weightcontrol;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -25,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private double myBMRADouble, todayBMRADouble,
             douTotalCalories, douTotalBurn;
     private ImageView imageView;
+    private boolean aBoolean = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,15 +79,41 @@ public class MainActivity extends AppCompatActivity {
             imageView.setImageResource(ints[2]);
         } else if (douPersen < 70) {
             imageView.setImageResource(ints[3]);
+            aBoolean = true;
         } else if (douPersen < 80) {
             imageView.setImageResource(ints[4]);
         } else if (douPersen < 90) {
             imageView.setImageResource(ints[5]);
         } else {
             imageView.setImageResource(ints[6]);
+            if (aBoolean) {
+                alertOver();
+            }
         }
 
     }   // check
+
+    private void alertOver() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(false);
+        builder.setIcon(R.drawable.doremon48);
+        builder.setTitle("Calories Over");
+        builder.setMessage("Calories Over more Burn");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+                aBoolean = false;
+            }
+        });
+        builder.show();
+
+        //Sound Effect
+        MediaPlayer mediaPlayer = MediaPlayer.create(getBaseContext(), R.raw.intro_start_horse);
+        mediaPlayer.start();
+
+    }   // alertOver
 
     private void showBurn() {
 
